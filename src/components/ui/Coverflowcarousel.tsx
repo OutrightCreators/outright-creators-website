@@ -100,6 +100,8 @@ export default function CoverflowCarousel({
     index: 0,
   });
   const [dims, setDims] = useState({ w: slideWidth, h: slideHeight });
+  const [isMobile, setIsMobile] = useState(false);
+  const dialogOpenRef = useRef(false);
 
   const slides = items?.length > 0 ? items : FALLBACK_ITEMS;
   const count = slides.length;
@@ -192,6 +194,39 @@ export default function CoverflowCarousel({
   );
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      if (dialogOpenRef.current) {
+        dialogOpenRef.current = false;
+
+        setDialogState({
+          isOpen: false,
+          index: 0,
+        });
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
+  useEffect(() => {
     const updateDims = () => {
       if (window.innerWidth < 768) {
         const mobileWidth = window.innerWidth * 0.65;
@@ -256,23 +291,31 @@ export default function CoverflowCarousel({
     container.addEventListener("mousedown", onStart as EventListener);
     window.addEventListener("mousemove", onMove as EventListener);
     window.addEventListener("mouseup", onEnd);
-    container.addEventListener("touchstart", onStart as EventListener, {
-      passive: true,
-    });
-    window.addEventListener("touchmove", onMove as EventListener, {
-      passive: false,
-    });
-    window.addEventListener("touchend", onEnd);
+    if (!isMobile) {
+      container.addEventListener("touchstart", onStart as EventListener, {
+        passive: true,
+      });
+
+      window.addEventListener("touchmove", onMove as EventListener, {
+        passive: false,
+      });
+
+      window.addEventListener("touchend", onEnd);
+    }
 
     return () => {
       container.removeEventListener("mousedown", onStart as EventListener);
       window.removeEventListener("mousemove", onMove as EventListener);
       window.removeEventListener("mouseup", onEnd);
-      container.removeEventListener("touchstart", onStart as EventListener);
-      window.removeEventListener("touchmove", onMove as EventListener);
-      window.removeEventListener("touchend", onEnd);
+      if (!isMobile) {
+        container.removeEventListener("touchstart", onStart as EventListener);
+
+        window.removeEventListener("touchmove", onMove as EventListener);
+
+        window.removeEventListener("touchend", onEnd);
+      }
     };
-  }, [step, dims.w, render, snapTo]);
+  }, [step, dims.w, render, snapTo, isMobile]);
 
   useEffect(() => {
     if (!autoplay || count <= 1) return;
@@ -315,13 +358,29 @@ export default function CoverflowCarousel({
   const handleSlideClick = useCallback(
     (i: number) => {
       let dist = i - activeIndex;
+
       if (loop) {
         const half = count / 2;
         if (dist > half) dist -= count;
         else if (dist < -half) dist += count;
       }
+
       if (dist === 0) {
-        setDialogState({ isOpen: true, index: i });
+        if (!dialogOpenRef.current) {
+          window.history.pushState(
+            {
+              mediaDialog: true,
+            },
+            "",
+          );
+        }
+
+        dialogOpenRef.current = true;
+
+        setDialogState({
+          isOpen: true,
+          index: i,
+        });
       } else {
         snapTo(indexRef.current + dist);
       }
@@ -329,10 +388,18 @@ export default function CoverflowCarousel({
     [activeIndex, loop, count, snapTo],
   );
 
-  const closeDialog = useCallback(
-    () => setDialogState({ isOpen: false, index: 0 }),
-    [],
-  );
+  const closeDialog = useCallback(() => {
+    if (dialogOpenRef.current && window.history.state?.mediaDialog) {
+      window.history.back();
+    } else {
+      dialogOpenRef.current = false;
+
+      setDialogState({
+        isOpen: false,
+        index: 0,
+      });
+    }
+  }, []);
 
   return (
     <>
@@ -493,6 +560,32 @@ function MediaDialog({
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const item = items[currentIndex];
 
+  const handleClose = useCallback(() => {
+    const tl = gsap.timeline({
+      onComplete: () => {
+        onClose();
+      },
+    });
+
+    tl.to(panelRef.current, {
+      opacity: 0,
+      scale: 0.94,
+      y: 16,
+      duration: 0.25,
+      ease: "power2.in",
+    });
+
+    tl.to(
+      overlayRef.current,
+      {
+        opacity: 0,
+        duration: 0.2,
+        ease: "power2.in",
+      },
+      "-=0.1",
+    );
+  }, [onClose]);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -508,22 +601,6 @@ function MediaDialog({
     });
     return () => ctx.revert();
   }, []);
-
-  const handleClose = useCallback(() => {
-    const tl = gsap.timeline({ onComplete: onClose });
-    tl.to(panelRef.current, {
-      opacity: 0,
-      scale: 0.94,
-      y: 16,
-      duration: 0.25,
-      ease: "power2.in",
-    });
-    tl.to(
-      overlayRef.current,
-      { opacity: 0, duration: 0.2, ease: "power2.in" },
-      "-=0.1",
-    );
-  }, [onClose]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

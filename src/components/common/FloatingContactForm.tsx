@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowUpRight, X, MessageCircle, ChevronUp } from "lucide-react";
+import { ArrowUpRight, X, MessageCircle } from "lucide-react";
 
 type FormData = {
   name: string;
@@ -19,7 +19,6 @@ type FieldErrors = {
 
 export default function FloatingContactForm() {
   const [open, setOpen] = useState(false);
-  const [showActions, setShowActions] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [submitError, setSubmitError] = useState("");
@@ -137,49 +136,30 @@ export default function FloatingContactForm() {
     <>
       {/* FLOATING ACTIONS */}
       <div className="fixed right-5 bottom-5 z-47 flex flex-col items-end gap-3 md:right-8 md:bottom-8">
-        {/* ACTION BUTTONS */}
-        <div
-          className={`flex flex-col items-end gap-3 transition-all duration-500 ${
-            showActions
-              ? "pointer-events-auto translate-y-0 opacity-100"
-              : "pointer-events-none translate-y-5 opacity-0"
-          }`}
+        {/* WHATSAPP */}
+        <a
+          href="https://wa.me/6300380596"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl transition-transform duration-300 hover:scale-110"
         >
-          {/* WHATSAPP */}
-          <a
-            href="https://wa.me/919014844173"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl transition-transform duration-300 hover:scale-110"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="26"
+            height="26"
+            viewBox="0 0 24 24"
+            fill="currentColor"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="26"
-              height="26"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M20.52 3.48A11.86 11.86 0 0 0 12.07 0C5.5 0 .16 5.34.16 11.91c0 2.1.55 4.16 1.6 5.98L0 24l6.28-1.65a11.9 11.9 0 0 0 5.79 1.48h.01c6.57 0 11.91-5.34 11.91-11.91 0-3.18-1.24-6.17-3.47-8.44ZM12.08 21.8h-.01a9.88 9.88 0 0 1-5.03-1.38l-.36-.21-3.73.98 1-3.64-.24-.37a9.85 9.85 0 0 1-1.52-5.27c0-5.46 4.44-9.9 9.9-9.9 2.64 0 5.12 1.03 6.99 2.91a9.82 9.82 0 0 1 2.9 6.99c0 5.46-4.44 9.89-9.9 9.89Zm5.43-7.43c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.08-.3-.15-1.25-.46-2.38-1.48-.88-.79-1.47-1.77-1.64-2.07-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.08-.8.37-.27.3-1.05 1.03-1.05 2.5 0 1.47 1.08 2.89 1.23 3.09.15.2 2.12 3.24 5.13 4.54.72.31 1.28.5 1.72.64.72.23 1.37.2 1.88.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z" />
-            </svg>
-          </a>
+            <path d="M20.52 3.48A11.86 11.86 0 0 0 12.07 0C5.5 0 .16 5.34.16 11.91c0 2.1.55 4.16 1.6 5.98L0 24l6.28-1.65a11.9 11.9 0 0 0 5.79 1.48h.01c6.57 0 11.91-5.34 11.91-11.91 0-3.18-1.24-6.17-3.47-8.44ZM12.08 21.8h-.01a9.88 9.88 0 0 1-5.03-1.38l-.36-.21-3.73.98 1-3.64-.24-.37a9.85 9.85 0 0 1-1.52-5.27c0-5.46 4.44-9.9 9.9-9.9 2.64 0 5.12 1.03 6.99 2.91a9.82 9.82 0 0 1 2.9 6.99c0 5.46-4.44 9.89-9.9 9.89Zm5.43-7.43c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.08-.3-.15-1.25-.46-2.38-1.48-.88-.79-1.47-1.77-1.64-2.07-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.08-.8.37-.27.3-1.05 1.03-1.05 2.5 0 1.47 1.08 2.89 1.23 3.09.15.2 2.12 3.24 5.13 4.54.72.31 1.28.5 1.72.64.72.23 1.37.2 1.88.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z" />
+          </svg>
+        </a>
 
-          {/* MESSAGE */}
-          <button
-            onClick={() => setOpen(true)}
-            className="flex h-14 w-14 items-center justify-center rounded-full bg-black text-white shadow-2xl transition-transform duration-300 hover:scale-110"
-          >
-            <MessageCircle size={24} />
-          </button>
-        </div>
-
-        {/* TOGGLE BUTTON */}
+        {/* MESSAGE */}
         <button
-          onClick={() => setShowActions((prev) => !prev)}
-          className={`flex h-14 w-14 items-center justify-center rounded-full bg-black text-white shadow-2xl transition-all duration-500 hover:scale-110 ${
-            showActions ? "rotate-180" : "rotate-0"
-          }`}
+          onClick={() => setOpen(true)}
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-black text-white shadow-2xl transition-transform duration-300 hover:scale-110"
         >
-          <ChevronUp size={24} />
+          <MessageCircle size={24} />
         </button>
       </div>
 

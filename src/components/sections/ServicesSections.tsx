@@ -103,6 +103,8 @@ export default function PremiumServiceSections({
   const [viewportW, setViewportW] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const lightboxOpenRef = useRef(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const items = section.assets;
   const total = items.length;
@@ -120,6 +122,35 @@ export default function PremiumServiceSections({
     },
     [viewportW, step],
   );
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      if (lightboxOpenRef.current) {
+        lightboxOpenRef.current = false;
+        setLightboxIndex(null);
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
 
   useLayoutEffect(() => {
     const measure = () => {
@@ -206,8 +237,14 @@ export default function PremiumServiceSections({
   // Pointer interactions handling mechanics
   const onPointerDown = (e: React.PointerEvent) => {
     dragging.current = true;
-    dragStart.current = { x: e.clientX, trackX: trackX.current };
-    if (containerRef.current) containerRef.current.style.cursor = "grabbing";
+    dragStart.current = {
+      x: e.clientX,
+      trackX: trackX.current,
+    };
+
+    if (containerRef.current) {
+      containerRef.current.style.cursor = "grabbing";
+    }
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
@@ -242,7 +279,7 @@ export default function PremiumServiceSections({
 
   const handleCardClick = (index: number) => {
     if (index === activeIndex) {
-      setLightboxIndex(index);
+      openLightbox(index);
     } else {
       // If an outer card is clicked, smoothly scroll to bring it into center focus
       const diff = index - activeIndex;
@@ -256,10 +293,33 @@ export default function PremiumServiceSections({
     }
   };
 
+  const openLightbox = (index: number) => {
+    if (!lightboxOpenRef.current) {
+      window.history.pushState(
+        {
+          showcaseLightbox: true,
+        },
+        "",
+      );
+    }
+
+    lightboxOpenRef.current = true;
+    setLightboxIndex(index);
+  };
+
+  const closeLightbox = () => {
+    if (lightboxOpenRef.current && window.history.state?.showcaseLightbox) {
+      window.history.back();
+    } else {
+      lightboxOpenRef.current = false;
+      setLightboxIndex(null);
+    }
+  };
+
   return (
     <section
       ref={containerRef}
-      className="relative w-full touch-none overflow-hidden py-16 select-none"
+      className="relative w-full overflow-hidden py-16 select-none"
     >
       {/* Outer Layout Frame Container wrapper workspace */}
       <div className="relative z-10 flex w-full items-center justify-between">
@@ -275,11 +335,15 @@ export default function PremiumServiceSections({
         {/* Carousel Animation Window Track Area */}
         <div
           className="relative flex w-full items-center overflow-hidden"
-          style={{ height: CARD_H + 60, cursor: "grab" }}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerLeave={onPointerUp}
+          style={{
+            height: CARD_H + 60,
+            cursor: isMobile ? "default" : "grab",
+            touchAction: isMobile ? "pan-y" : "none",
+          }}
+          onPointerDown={!isMobile ? onPointerDown : undefined}
+          onPointerMove={!isMobile ? onPointerMove : undefined}
+          onPointerUp={!isMobile ? onPointerUp : undefined}
+          onPointerLeave={!isMobile ? onPointerUp : undefined}
         >
           <div
             ref={trackRef}
@@ -320,7 +384,7 @@ export default function PremiumServiceSections({
           <ShowcaseLightbox
             items={items}
             initialIndex={lightboxIndex}
-            onClose={() => setLightboxIndex(null)}
+            onClose={closeLightbox}
           />
         )}
       </AnimatePresence>

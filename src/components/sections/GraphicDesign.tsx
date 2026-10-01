@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion";
 import TextReveal from "../motion/TextReveal";
-import PremiumServiceSections from "./ServicesSections";
-import { services } from "../data/service";
 import Orbit3DCarousel from "../ui/Orbit3DCarousel";
 import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
