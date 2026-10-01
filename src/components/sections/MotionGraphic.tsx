@@ -7,119 +7,220 @@ import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import ContactFormDialog from "../ui/ContactFormDialog";
 
+// const items: MediaItem[] = [
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/Mg1.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/1.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg2.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/2.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg3.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/3.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg4.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/4.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg5.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/5.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg6.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/6.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg7.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/7.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg8.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/8.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg9.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/9.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg10.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/10.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg11.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/11.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg12.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/12.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg13.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/13.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg14.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/14.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg15.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/15.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg16.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/16.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg17.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/17.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg18.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/18.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg19.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/19.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg20.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/20.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg21.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/21.png",
+//   },
+//   {
+//     type: "video",
+//     src: "/videos/MOTION-GRAPHICS/mg22.mp4",
+//     poster: "/videos/MOTION-GRAPHICS/22.png",
+//   },
+// ];
 const items: MediaItem[] = [
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/Mg1.mp4",
-    poster: "/videos/MOTION-GRAPHICS/1.png",
+    src: "/videos/graphi-ai/AG 3.mp4",
+    // alt: "AG 3",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg2.mp4",
-    poster: "/videos/MOTION-GRAPHICS/2.png",
+    src: "/videos/graphi-ai/09-09-2026.mp4",
+    // alt: "09-09-2026",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg3.mp4",
-    poster: "/videos/MOTION-GRAPHICS/3.png",
+    src: "/videos/graphi-ai/ar ganesh chaturthi wishes.mp4",
+    // alt: "Ar Ganesh Chaturthi Wishes",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg4.mp4",
-    poster: "/videos/MOTION-GRAPHICS/4.png",
+    src: "/videos/graphi-ai/Comp 1.mp4",
+    // alt: "Comp 1",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg5.mp4",
-    poster: "/videos/MOTION-GRAPHICS/5.png",
+    src: "/videos/graphi-ai/csk realtors.mp4",
+    // alt: "CSK Realtors",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg6.mp4",
-    poster: "/videos/MOTION-GRAPHICS/6.png",
+    src: "/videos/graphi-ai/csk realtors_09-07-2026.mp4",
+    // alt: "CSK Realtors 09-07-2026",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg7.mp4",
-    poster: "/videos/MOTION-GRAPHICS/7.png",
+    src: "/videos/graphi-ai/csk textiles 21-08-2026.mp4",
+    // alt: "CSK Textiles 21-08-2026",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg8.mp4",
-    poster: "/videos/MOTION-GRAPHICS/8.png",
+    src: "/videos/graphi-ai/csk textiles.mp4",
+    // alt: "CSK Textiles",
+  },
+  // {
+  //   type: "video",
+  //   src: "/videos/graphi-ai/Dabnkleaan reel.mp4",
+  //   // alt: "Dabnkleaan Reel",
+  // },
+  {
+    type: "video",
+    src: "/videos/graphi-ai/DNK 28-07-2026.mp4",
+    // alt: "DNK 28-07-2026",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg9.mp4",
-    poster: "/videos/MOTION-GRAPHICS/9.png",
+    src: "/videos/graphi-ai/DNK final 15-07-2026.mp4",
+    // alt: "DNK Final 15-07-2026",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg10.mp4",
-    poster: "/videos/MOTION-GRAPHICS/10.png",
+    src: "/videos/graphi-ai/final video.mp4",
+    // alt: "Final Video",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg11.mp4",
-    poster: "/videos/MOTION-GRAPHICS/11.png",
+    src: "/videos/graphi-ai/ganesh chaturthi silver essential items.mp4",
+    // alt: "Ganesh Chaturthi Silver Essential Items",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg12.mp4",
-    poster: "/videos/MOTION-GRAPHICS/12.png",
+    src: "/videos/graphi-ai/janmashtmi greetings.mp4",
+    // alt: "Janmashtmi Greetings",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg13.mp4",
-    poster: "/videos/MOTION-GRAPHICS/13.png",
+    src: "/videos/graphi-ai/shivaji silver idol.mp4",
+    // alt: "Shivaji Silver Idol",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg14.mp4",
-    poster: "/videos/MOTION-GRAPHICS/14.png",
+    src: "/videos/graphi-ai/silver anklets 09-07-26.mp4",
+    // alt: "Silver Anklets 09-07-26",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg15.mp4",
-    poster: "/videos/MOTION-GRAPHICS/15.png",
+    src: "/videos/graphi-ai/silver necklace set.mp4",
+    // alt: "Silver Necklace Set",
   },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg16.mp4",
-    poster: "/videos/MOTION-GRAPHICS/16.png",
+    src: "/videos/graphi-ai/silver rakhi collections argentum arts.mp4",
+    // alt: "Silver Rakhi Collections Argentum Arts",
   },
+  // {
+  //   type: "video",
+  //   src: "/videos/graphi-ai/silver rings.mp4",
+  //   // alt: "Silver Rings",
+  // },
   {
     type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg17.mp4",
-    poster: "/videos/MOTION-GRAPHICS/17.png",
-  },
-  {
-    type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg18.mp4",
-    poster: "/videos/MOTION-GRAPHICS/18.png",
-  },
-  {
-    type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg19.mp4",
-    poster: "/videos/MOTION-GRAPHICS/19.png",
-  },
-  {
-    type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg20.mp4",
-    poster: "/videos/MOTION-GRAPHICS/20.png",
-  },
-  {
-    type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg21.mp4",
-    poster: "/videos/MOTION-GRAPHICS/21.png",
-  },
-  {
-    type: "video",
-    src: "/videos/MOTION-GRAPHICS/mg22.mp4",
-    poster: "/videos/MOTION-GRAPHICS/22.png",
+    src: "/videos/graphi-ai/truck ps 2_1.mp4",
+    // alt: "Truck PS 2_1",
   },
 ];
-
 export default function MotionGraphic() {
   const [openContact, setOpenContact] = useState(false);
 

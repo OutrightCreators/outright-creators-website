@@ -15,38 +15,38 @@ const items: {
 }[] = [
   {
     type: "image",
-    src: "/assets/social-media/posters/1.jpg",
-    alt: "Social Media Poster 1",
+    src: "/assets/branding/13.jpeg",
+    alt: "Branding Image 1",
   },
   {
     type: "image",
-    src: "/assets/social-media/posters/2.jpg",
-    alt: "Social Media Poster 2",
+    src: "/assets/branding/17.jpg",
+    alt: "Branding Image 2",
   },
   {
     type: "image",
-    src: "/assets/social-media/posters/3.jpg",
-    alt: "Social Media Poster 3",
+    src: "/assets/branding/18.png",
+    alt: "Branding Image 3",
   },
   {
     type: "image",
-    src: "/assets/social-media/posters/4.jpg",
-    alt: "Social Media Poster 4",
+    src: "/assets/branding/15.jpeg",
+    alt: "Branding Image 4",
   },
   {
     type: "image",
-    src: "/assets/social-media/posters/5.jpg",
-    alt: "Social Media Poster 5",
+    src: "/assets/branding/20.jpg",
+    alt: "Branding Image 5",
   },
   {
     type: "image",
-    src: "/assets/social-media/posters/6.jpg",
-    alt: "Social Media Poster 6",
+    src: "/assets/branding/24.jpeg",
+    alt: "Branding Image 6",
   },
   {
     type: "image",
-    src: "/assets/social-media/posters/7.jpg",
-    alt: "Social Media Poster 7",
+    src: "/assets/branding/26.jpeg",
+    alt: "Branding Image 7",
   },
   // {
   //   type: "image",
