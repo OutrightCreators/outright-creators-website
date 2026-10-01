@@ -169,9 +169,17 @@ export default function Orbit3DCarousel({
         }}
         onMouseLeave={() => {
           dragging.current = false;
+          setMouseTilt({ x: 0, y: 0 });
         }}
       >
-        <motion.div className="absolute inset-0 flex items-center justify-center">
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center"
+          style={{
+            transformStyle: "preserve-3d",
+            rotateX: -mouseTilt.y,
+            rotateY: mouseTilt.x,
+          }}
+        >
           {cards.map((card, i) => (
             <OrbitCard
               key={i}
